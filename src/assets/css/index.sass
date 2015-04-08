@@ -1,0 +1,98 @@
+@import mixins
+
+body, html
+    margin: 0
+    font-family: 'Monaco', monospace // Courier New?
+    height: 100%
+
+$bottom-bar-height: 25px
+#bottom-bar
+    z-index: 3
+    position: absolute
+    bottom: 0px
+    height: $bottom-bar-height
+    border-left   : 0px !important
+    border-right  : 0px !important
+    border-bottom : 0px !important
+    width: 100%
+    font-size: 12px
+
+    & > div, & > a
+        padding: 5px 15px
+
+.btn
+    display: inline-block
+    padding: 5px
+    border-radius: 5px
+    font-size: 11px
+    cursor: pointer
+    margin: 0px 5px
+    &:focus
+        outline: 0
+
+#settings
+    position: absolute
+    width: 100%
+    @include calc(height, '100% - #{$bottom-bar-height}')
+    z-index: 2
+    overflow-y: auto
+
+    .settings-content
+        padding: 20px 0px
+
+    .settings-header
+        $header-padding: 5px
+        @include calc(width, '100% - #{2 * $header-padding}')
+        border-radius: 2px
+        -moz-border-radius: 2px
+        padding: $header-padding
+
+.transition-ease-width
+    @include transition(width 0.2s ease-in-out)
+
+#contents
+    display: flex
+    flex-direction: row
+    bottom: $bottom-bar-height
+    position: absolute
+    width: 100%
+    @include calc(height, '100% - #{$bottom-bar-height}')
+
+    #view, #menu
+        $content-padding: 50px
+        padding: $content-padding
+
+        @include calc(height, '100% - #{2 * $content-padding}')
+        width: 100%
+
+        overflow-y: auto
+
+.tabs
+    list-style: none
+    position: relative
+    z-index: 2
+    $tab-height: 20px
+    $tab-bar-height: 1px
+    & > li
+        display: inline-block
+        cursor: pointer
+        margin: 0 10px
+        padding: 0 10px
+        height: $tab-height
+        position: relative
+        &.active
+            height: $tab-height + $tab-bar-height
+            background-color: inherit !important
+            font-weight: bold
+            z-index: 4
+            border-bottom:  0px !important
+            border-color: inherit !important
+            margin-top: $tab-bar-height
+    &:after
+        position: absolute
+        content: ""
+        width: 100%
+        bottom: 0
+        left: 0
+        border-bottom: $tab-bar-height solid
+        z-index: 3

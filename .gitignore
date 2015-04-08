@@ -1,0 +1,14 @@
+/dist/
+/static/build/
+.sass-cache
+
+node_modules/
+npm-debug.log
+
+# vim swap files
+*.sw*
+# spacemacs files
+.#*
+
+/todo
+.DS_Store

@@ -1,0 +1,33 @@
+sudo: true
+dist: trusty
+language: node_js
+
+# The specification of multiple node versions
+# adds implicit jobs to the test stage (so we don't have to explicitly
+# add them), see
+# https://docs.travis-ci.com/user/build-stages/#Build-Stages-and-Build-Matrix-Expansion
+# for details
+node_js:
+- '6'
+- '6.1'
+
+cache:
+  directories:
+    - node_modules
+jobs:
+  include:
+  - stage: compile
+    script:
+    - npm run lint
+    - npm run typecheck
+    - npm run build
+
+  - stage: deploy
+    install: skip
+    before_install:
+      - sudo apt-get update
+      - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+stages:
+  - compile
+  - test
+  - deploy
